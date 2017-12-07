@@ -72,7 +72,7 @@ function getAkkumulieren2(str)
 {
     var res=[];
     var i;
-    for ( i=str.length-1; i>1; i-- ) 
+    for ( i=str.length-1; i>0; i-- ) 
         {
           res[i]=str[i]+str[i-1];
         } 
@@ -80,7 +80,7 @@ function getAkkumulieren2(str)
         return res;
 }
 
-var AKKUMULIEREN2=getAkkumulieren1(AKKUMULIEREN1);
+var AKKUMULIEREN2=getAkkumulieren2(AKKUMULIEREN1);
 document.getElementById("akkumulieren2").innerHTML=AKKUMULIEREN2;
 
 </script>
