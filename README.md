@@ -11,6 +11,7 @@
 <p id="akkumulieren2"></p>
 <p id="zaun"></p>
 <p id="hexadezimaltext"></p>
+<p id="getrenntebits"></p>
 <p id="zeichenfolge"></p>
 <p id="zahlenfolgetext"></p>
 <p id="klartext"></p>
@@ -28,6 +29,7 @@
 //AKKUMULIEREN2             后累加密文
 //ZAUN                      栅栏加密密文
 //HEXADEZIMALTEXT           十六进制文本
+//GETRENNTEBITS             分隔位
 //ZEICHENFOLGE              字符串
 //ZAHLENFOLGETEXT           数字串
 //KLARTEXT                  片假名
@@ -35,7 +37,10 @@
 //DERENDGULTIGEGEHEIMTEXT2  最终密文2
 //DERENDGULTIGEGEHEIMTEXT3  最终密文3
 
-var TESTTEXT = "滴滴答滴答";
+//密码表
+var PASSWORTTABLLE="ボジオタギデバリミュサザョビエマ";
+
+var TESTTEXT ="我爱你2333！？。I love you. 私はあなたを愛している!";
 document.getElementById("testtext").innerHTML=TESTTEXT;
 
 //转为unicode编码
@@ -50,7 +55,7 @@ function encodeUnicode(str)
 }  
 
 var CHIFFRETEXT=encodeUnicode(TESTTEXT);
-//document.getElementById("chiffretext").innerHTML=CHIFFRETEXT;
+document.getElementById("chiffretext").innerHTML=CHIFFRETEXT;
 
 //转为十进制数字
 function getDezimaltext(str) 
@@ -64,7 +69,7 @@ function getDezimaltext(str)
 }  
 
 var DEZIMALTEXT=getDezimaltext(CHIFFRETEXT);
-//document.getElementById("dezimaltext").innerHTML=DEZIMALTEXT;
+document.getElementById("dezimaltext").innerHTML=DEZIMALTEXT;
 
 //前累加加密
 function getAkkumulieren1(str)
@@ -80,7 +85,7 @@ function getAkkumulieren1(str)
 }
 
 var AKKUMULIEREN1=getAkkumulieren1(DEZIMALTEXT);
-//document.getElementById("akkumulieren1").innerHTML=AKKUMULIEREN1;
+document.getElementById("akkumulieren1").innerHTML=AKKUMULIEREN1;
 
 //后累加加密
 function getAkkumulieren2(str)
@@ -96,7 +101,7 @@ function getAkkumulieren2(str)
 }
 
 var AKKUMULIEREN2=getAkkumulieren2(AKKUMULIEREN1);
-//document.getElementById("akkumulieren2").innerHTML=AKKUMULIEREN2;
+document.getElementById("akkumulieren2").innerHTML=AKKUMULIEREN2;
 
 //栅栏加密
 function getZaun(str)
@@ -117,7 +122,7 @@ function getZaun(str)
 }
 
 var ZAUN=getZaun(AKKUMULIEREN2);
-//document.getElementById("zaun").innerHTML=ZAUN;
+document.getElementById("zaun").innerHTML=ZAUN;
 
 //转为十六进制字符串
 function getHexadezimal(str) 
@@ -131,7 +136,23 @@ function getHexadezimal(str)
 }
 
 var HEXADEZIMALTEXT=getHexadezimal(ZAUN);
-//document.getElementById("hexadezimaltext").innerHTML=HEXADEZIMALTEXT;
+document.getElementById("hexadezimaltext").innerHTML=HEXADEZIMALTEXT;
+
+//记录分隔位
+ var number=0;
+function ZeichnenSiedasTrennungsbitauf(str)
+{
+    var res=[];
+    res=str.split("");
+    number+=parseInt(res.length+1);
+}
+var NUMSTRING=[];
+for(var i=0;i<CHIFFRETEXT.length;i++)
+{
+    ZeichnenSiedasTrennungsbitauf(HEXADEZIMALTEXT[i]);
+    NUMSTRING[i]=number;
+}
+var GETRENNTEBITS=NUMSTRING;
 
 //获取字符串
 var res2 = [];
@@ -147,7 +168,7 @@ function getZeichenfolge(str)
 }
 
 var ZEICHENFOLGE=getZeichenfolge(HEXADEZIMALTEXT);
-//document.getElementById("zeichenfolge").innerHTML=ZEICHENFOLGE;
+document.getElementById("zeichenfolge").innerHTML=ZEICHENFOLGE;
 
 //最后一个数字串
 function getZahlenfolgetext(str)
@@ -171,10 +192,7 @@ function getZahlenfolgetext(str)
 }
 
 var ZAHLENFOLGETEXT=getZaun(getZahlenfolgetext(ZEICHENFOLGE));
-//document.getElementById("zahlenfolgetext").innerHTML=ZAHLENFOLGETEXT;
-
-//密码表
-var PASSWORTTABLLE="ボジオタギデバリミュサザョビエマ";
+document.getElementById("zahlenfolgetext").innerHTML=ZAHLENFOLGETEXT;
 
 //最终密文
 var KLARTEXT=[];
@@ -273,7 +291,7 @@ for(var i=0;i<ZAHLENFOLGETEXT.length;i++)
 }
 
 var DERENDGULTIGEGEHEIMTEXT2=getZaun(DERENDGULTIGEGEHEIMTEXT);
-//document.getElementById("derendgultigegeheimtext2").innerHTML=DERENDGULTIGEGEHEIMTEXT2;
+document.getElementById("derendgultigegeheimtext2").innerHTML=DERENDGULTIGEGEHEIMTEXT2;
 
 var DERENDGULTIGEGEHEIMTEXT3=[];
 for(var i=0;i<DERENDGULTIGEGEHEIMTEXT2.length;i++)
@@ -281,7 +299,7 @@ for(var i=0;i<DERENDGULTIGEGEHEIMTEXT2.length;i++)
     
         DERENDGULTIGEGEHEIMTEXT3+=DERENDGULTIGEGEHEIMTEXT2[i].replace(/,/g, "");
 }
-document.getElementById("derendgultigegeheimtext3").innerHTML=DERENDGULTIGEGEHEIMTEXT3;
+document.getElementById("derendgultigegeheimtext3").innerHTML="最终密文3："+DERENDGULTIGEGEHEIMTEXT3+GETRENNTEBITS;
 
 </script>
 
