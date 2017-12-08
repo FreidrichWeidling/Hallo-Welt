@@ -55,7 +55,7 @@ function encodeUnicode(str)
 }  
 
 var CHIFFRETEXT=encodeUnicode(TESTTEXT);
-document.getElementById("chiffretext").innerHTML=CHIFFRETEXT;
+//document.getElementById("chiffretext").innerHTML=CHIFFRETEXT;
 
 //转为十进制数字
 function getDezimaltext(str) 
@@ -69,7 +69,7 @@ function getDezimaltext(str)
 }  
 
 var DEZIMALTEXT=getDezimaltext(CHIFFRETEXT);
-document.getElementById("dezimaltext").innerHTML=DEZIMALTEXT;
+//document.getElementById("dezimaltext").innerHTML=DEZIMALTEXT;
 
 //前累加加密
 function getAkkumulieren1(str)
@@ -85,7 +85,7 @@ function getAkkumulieren1(str)
 }
 
 var AKKUMULIEREN1=getAkkumulieren1(DEZIMALTEXT);
-document.getElementById("akkumulieren1").innerHTML=AKKUMULIEREN1;
+//document.getElementById("akkumulieren1").innerHTML=AKKUMULIEREN1;
 
 //后累加加密
 function getAkkumulieren2(str)
@@ -101,7 +101,7 @@ function getAkkumulieren2(str)
 }
 
 var AKKUMULIEREN2=getAkkumulieren2(AKKUMULIEREN1);
-document.getElementById("akkumulieren2").innerHTML=AKKUMULIEREN2;
+//document.getElementById("akkumulieren2").innerHTML=AKKUMULIEREN2;
 
 //栅栏加密
 function getZaun(str)
@@ -122,7 +122,7 @@ function getZaun(str)
 }
 
 var ZAUN=getZaun(AKKUMULIEREN2);
-document.getElementById("zaun").innerHTML=ZAUN;
+//document.getElementById("zaun").innerHTML=ZAUN;
 
 //转为十六进制字符串
 function getHexadezimal(str) 
@@ -136,7 +136,7 @@ function getHexadezimal(str)
 }
 
 var HEXADEZIMALTEXT=getHexadezimal(ZAUN);
-document.getElementById("hexadezimaltext").innerHTML=HEXADEZIMALTEXT;
+//document.getElementById("hexadezimaltext").innerHTML=HEXADEZIMALTEXT;
 
 //记录分隔位
  var number=0;
@@ -144,7 +144,7 @@ function ZeichnenSiedasTrennungsbitauf(str)
 {
     var res=[];
     res=str.split("");
-    number+=parseInt(res.length+1);
+    number+=parseInt(res.length);
 }
 var NUMSTRING=[];
 for(var i=0;i<CHIFFRETEXT.length;i++)
@@ -168,7 +168,7 @@ function getZeichenfolge(str)
 }
 
 var ZEICHENFOLGE=getZeichenfolge(HEXADEZIMALTEXT);
-document.getElementById("zeichenfolge").innerHTML=ZEICHENFOLGE;
+//document.getElementById("zeichenfolge").innerHTML=ZEICHENFOLGE;
 
 //最后一个数字串
 function getZahlenfolgetext(str)
@@ -192,7 +192,7 @@ function getZahlenfolgetext(str)
 }
 
 var ZAHLENFOLGETEXT=getZaun(getZahlenfolgetext(ZEICHENFOLGE));
-document.getElementById("zahlenfolgetext").innerHTML=ZAHLENFOLGETEXT;
+//document.getElementById("zahlenfolgetext").innerHTML=ZAHLENFOLGETEXT;
 
 //最终密文
 var KLARTEXT=[];
@@ -291,7 +291,7 @@ for(var i=0;i<ZAHLENFOLGETEXT.length;i++)
 }
 
 var DERENDGULTIGEGEHEIMTEXT2=getZaun(DERENDGULTIGEGEHEIMTEXT);
-document.getElementById("derendgultigegeheimtext2").innerHTML=DERENDGULTIGEGEHEIMTEXT2;
+//document.getElementById("derendgultigegeheimtext2").innerHTML=DERENDGULTIGEGEHEIMTEXT2;
 
 var DERENDGULTIGEGEHEIMTEXT3=[];
 for(var i=0;i<DERENDGULTIGEGEHEIMTEXT2.length;i++)
