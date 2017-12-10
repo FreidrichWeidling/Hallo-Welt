@@ -17,7 +17,7 @@
 <p id="klartext"></p>
 <p id="derendgultigegeheimtext"></p>
 <p id="derendgultigegeheimtext2"></p>
-<p id="derendgultigegeheimtext3"></p>
+<p id="gerget"></p>
 
 <script>
 
@@ -35,13 +35,14 @@
 //KLARTEXT                  片假名
 //DERENDGULTIGEGEHEIMTEXT   最终密文
 //DERENDGULTIGEGEHEIMTEXT2  最终密文2
-//DERENDGULTIGEGEHEIMTEXT3  最终密文3
+//GERGET  最终密文3
 
 //密码表
 var PASSWORTTABLLE="ボジオタギデバリミュサザョビエマ";
+//var PASSWORTTABLLE="БбЁёЖжИиЛлПпФфЦц";
 
-var TESTTEXT ="我爱你2333！？。I love you. 私はあなたを愛している!";
-document.getElementById("testtext").innerHTML=TESTTEXT;
+var TESTTEXT ="我爱你。Ich liebe dich.私はあなたを愛している。I love you.";
+document.getElementById("testtext").innerHTML="明文："+TESTTEXT;
 
 //转为unicode编码
 function encodeUnicode(str) 
@@ -55,7 +56,7 @@ function encodeUnicode(str)
 }  
 
 var CHIFFRETEXT=encodeUnicode(TESTTEXT);
-//document.getElementById("chiffretext").innerHTML=CHIFFRETEXT;
+//document.getElementById("chiffretext").innerHTML="转为unicode编码"+CHIFFRETEXT;
 
 //转为十进制数字
 function getDezimaltext(str) 
@@ -69,7 +70,7 @@ function getDezimaltext(str)
 }  
 
 var DEZIMALTEXT=getDezimaltext(CHIFFRETEXT);
-//document.getElementById("dezimaltext").innerHTML=DEZIMALTEXT;
+//document.getElementById("dezimaltext").innerHTML="转为十进制数字"+DEZIMALTEXT;
 
 //前累加加密
 function getAkkumulieren1(str)
@@ -85,7 +86,7 @@ function getAkkumulieren1(str)
 }
 
 var AKKUMULIEREN1=getAkkumulieren1(DEZIMALTEXT);
-//document.getElementById("akkumulieren1").innerHTML=AKKUMULIEREN1;
+//document.getElementById("akkumulieren1").innerHTML="前累加加密"+AKKUMULIEREN1;
 
 //后累加加密
 function getAkkumulieren2(str)
@@ -101,7 +102,7 @@ function getAkkumulieren2(str)
 }
 
 var AKKUMULIEREN2=getAkkumulieren2(AKKUMULIEREN1);
-//document.getElementById("akkumulieren2").innerHTML=AKKUMULIEREN2;
+//document.getElementById("akkumulieren2").innerHTML="后累加加密"+AKKUMULIEREN2;
 
 //栅栏加密
 function getZaun(str)
@@ -122,7 +123,7 @@ function getZaun(str)
 }
 
 var ZAUN=getZaun(AKKUMULIEREN2);
-//document.getElementById("zaun").innerHTML=ZAUN;
+//document.getElementById("zaun").innerHTML="栅栏加密"+ZAUN;
 
 //转为十六进制字符串
 function getHexadezimal(str) 
@@ -136,7 +137,7 @@ function getHexadezimal(str)
 }
 
 var HEXADEZIMALTEXT=getHexadezimal(ZAUN);
-//document.getElementById("hexadezimaltext").innerHTML=HEXADEZIMALTEXT;
+//document.getElementById("hexadezimaltext").innerHTML="转为十六进制字符串"+HEXADEZIMALTEXT;
 
 //记录分隔位
  var number=0;
@@ -152,7 +153,12 @@ for(var i=0;i<CHIFFRETEXT.length;i++)
     ZeichnenSiedasTrennungsbitauf(HEXADEZIMALTEXT[i]);
     NUMSTRING[i]=number;
 }
-var GETRENNTEBITS=NUMSTRING;
+var GETRENNTEBITS=[]
+for(var i=0;i<NUMSTRING.length;i++)
+{
+    GETRENNTEBITS[i]=NUMSTRING[i];
+
+}
 
 //获取字符串
 var res2 = [];
@@ -168,7 +174,7 @@ function getZeichenfolge(str)
 }
 
 var ZEICHENFOLGE=getZeichenfolge(HEXADEZIMALTEXT);
-//document.getElementById("zeichenfolge").innerHTML=ZEICHENFOLGE;
+//document.getElementById("zeichenfolge").innerHTML="获取字符串"+ZEICHENFOLGE;
 
 //最后一个数字串
 function getZahlenfolgetext(str)
@@ -191,8 +197,8 @@ function getZahlenfolgetext(str)
     return TT.replace(/,/g, "");
 }
 
-var ZAHLENFOLGETEXT=getZaun(getZahlenfolgetext(ZEICHENFOLGE));
-//document.getElementById("zahlenfolgetext").innerHTML=ZAHLENFOLGETEXT;
+var ZAHLENFOLGETEXT=getZahlenfolgetext(ZEICHENFOLGE);
+//document.getElementById("zahlenfolgetext").innerHTML="最后一个数字串"+ZAHLENFOLGETEXT;
 
 //最终密文
 var KLARTEXT=[];
@@ -291,15 +297,15 @@ for(var i=0;i<ZAHLENFOLGETEXT.length;i++)
 }
 
 var DERENDGULTIGEGEHEIMTEXT2=getZaun(DERENDGULTIGEGEHEIMTEXT);
-//document.getElementById("derendgultigegeheimtext2").innerHTML=DERENDGULTIGEGEHEIMTEXT2;
+//document.getElementById("derendgultigegeheimtext2").innerHTML="最终密文"+DERENDGULTIGEGEHEIMTEXT2;
 
 var DERENDGULTIGEGEHEIMTEXT3=[];
 for(var i=0;i<DERENDGULTIGEGEHEIMTEXT2.length;i++)
 {
-    
-        DERENDGULTIGEGEHEIMTEXT3+=DERENDGULTIGEGEHEIMTEXT2[i].replace(/,/g, "");
+  DERENDGULTIGEGEHEIMTEXT3+=DERENDGULTIGEGEHEIMTEXT2[i].replace(/,/g, "");
 }
-document.getElementById("derendgultigegeheimtext3").innerHTML="最终密文3："+DERENDGULTIGEGEHEIMTEXT3+GETRENNTEBITS;
+var GERGET=DERENDGULTIGEGEHEIMTEXT3+GETRENNTEBITS;
+document.getElementById("gerget").innerHTML="密文："+GERGET;
 
 </script>
 
