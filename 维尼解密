@@ -1,0 +1,413 @@
+# Hallo-Welt
+<p>Dies ist mein erstes Repository auf GitHub. Ich hoffe, es kann mir helfen, meine Aufgabe fließend zu beenden.</p>
+<!DOCTYPE html>
+<html>
+<body>
+
+<p id="testtext"></p>
+<p id="numberstring"></p>
+<p id="klartext"></p>
+<p id="klartextunzaunttext"></p>
+<p id="numbertext"></p>
+<p id="singlenumber"></p>
+<p id="hexadezimaltext"></p>
+<p id="group"></p>
+<p id="dezimaltext"></p>
+<p id="entschlusselndigitalerzaun"></p>
+<p id="group2"></p>
+<p id="kumulativenentschlusselung"></p>
+<p id="vorkumuliertemverschlusselung"></p>
+<p id="hexadezimal"></p>
+<p id="hexadezimal0"></p>
+<p id="vorbehandlung"></p>
+<p id="bai"></p>
+
+<script>
+
+//变量名称为大写字母，id为与变量名称相对应的小写字母
+//TESTTEXT                        测试密文
+//KLARTEXT                        片假名
+//KLARTEXTUNZAUNTTEXT             栅栏变换片假名
+//NUMBERSTRING                    数字串
+//NUMBERTEXT                      十六进制数字
+//HEXADEZIMALTEXT                 十六进制字符
+//GROUP                           分隔位数字符组
+//DEZIMALTEXT                     十进制字符
+//ENTSCHLUSSELNDIGITALERZAUN      栅栏变换十进制数字
+//GROUP2                          数字字符组
+//KUMULATIVENENTSCHLUSSELUNG      后累加解密
+//VORKUMULIERTEMVERSCHLUSSELUNG   前累加解密
+//HEXADEZIMAL                     十六进制准明文
+//HEXADEZIMAL0                    十六进制补零明文
+//VORBEHANDLUNG                   预处理
+//VORBEHANDLUNG2                  最终预处理结果
+//BAI                             明文
+
+//密码表
+var PASSWORTTABLLE="ボジオタギデバリミュサザョビエマ";
+//var PASSWORTTABLLE="БбЁёЖжИиЛлПпФфЦц";
+
+var TESTTEXT = "ビギジボタボリデジジュジョデジリサデボエョリマュマオョリュビマジボバジジミジデタマビリジギサジエボジュバジギマジビジサオジョバョデタザジリョジエョビギオギマタマジタバジデギジジュリミジサジジデオエオマジュボミデョジボミジリュビササジリジジタミジュュジジオジョデョザジタマジリジョボギバジボジジョジ4,9,13,16,19,22,25,28,31,35,40,44,48,52,56,60,62,65,68,71,74,79,83,86,89,92,95,98,101,104,109,113,117,122,126,130,134,137,140,143,146,148";
+document.getElementById("testtext").innerHTML="密文："+TESTTEXT;
+
+//获得片假名
+var COUNT=0;
+var KLARTEXT=[];
+function getNumberundKlartext(str)
+{
+  var k=0;
+  for(i=0;i<str.length;i++)
+  {
+    if(str[i]==PASSWORTTABLLE[0]||str[i]==PASSWORTTABLLE[1]||str[i]==PASSWORTTABLLE[2]||str[i]==PASSWORTTABLLE[3]||str[i]==PASSWORTTABLLE[4]||
+      str[i]==PASSWORTTABLLE[5]||str[i]==PASSWORTTABLLE[6]||str[i]==PASSWORTTABLLE[7]||str[i]==PASSWORTTABLLE[8]||
+      str[i]==PASSWORTTABLLE[9]||str[i]==PASSWORTTABLLE[10]||str[i]==PASSWORTTABLLE[11]||str[i]==PASSWORTTABLLE[12]||str[i]==PASSWORTTABLLE[13]||
+      str[i]==PASSWORTTABLLE[14]||str[i]==PASSWORTTABLLE[15])
+     {
+       KLARTEXT[i]=str[i];
+       COUNT++;
+     }
+   }
+
+}
+getNumberundKlartext(TESTTEXT);
+//document.getElementById("klartext").innerHTML="获得片假名"+KLARTEXT;
+
+//片假名栅栏还原
+function getKlartextunzaun(str)
+{
+    if(str.length%2==0)
+      {
+          var res=[];
+      for(var i=0;i<str.length/2;)
+      {
+          res+=str[i];
+          res+=str[str.length/2+i];
+          i++;
+      }
+      return res;
+      }
+    if(str.length%2!=0)
+    {
+      var res=[];
+      for(var i=0;i<str.length/2;)
+      {
+          res+=str[i];
+          if(i!=(str.length-1)/2)
+          {
+            res+=str[(1+str.length)/2+i];
+          }
+          i++;
+      }
+      return res;
+    }
+}
+var KLARTEXTUNZAUNTTEXT=getKlartextunzaun(KLARTEXT);
+//document.getElementById("klartextunzaunttext").innerHTML="片假名栅栏还原"+KLARTEXTUNZAUNTTEXT;
+
+//获取数字串
+var NUMBERSTRING=[];
+NUMBERSTRING=TESTTEXT.substring(COUNT);
+//document.getElementById("numberstring").innerHTML="获取数字串"+NUMBERSTRING;
+
+//还原为十六进制数字
+var NUMBERTEXT=[];
+function getHexadezimaltext(str)
+{
+  if(str==PASSWORTTABLLE[0])
+  {
+    NUMBERTEXT="0";
+  }
+  if(str==PASSWORTTABLLE[1])
+  {
+    NUMBERTEXT="1";
+  }
+  if(str==PASSWORTTABLLE[2])
+  {
+    NUMBERTEXT="2";
+  }
+  if(str==PASSWORTTABLLE[3])
+  {
+    NUMBERTEXT="3";
+  }
+  if(str==PASSWORTTABLLE[4])
+  {
+    NUMBERTEXT="4";
+  }
+  if(str==PASSWORTTABLLE[5])
+  {
+    NUMBERTEXT="5";
+  }
+  if(str==PASSWORTTABLLE[6])
+  {
+    NUMBERTEXT="6";
+  }
+  if(str==PASSWORTTABLLE[7])
+  {
+    NUMBERTEXT="7";
+  }
+  if(str==PASSWORTTABLLE[8])
+  {
+    NUMBERTEXT="8";
+  }
+  if(str==PASSWORTTABLLE[9])
+  {
+    NUMBERTEXT="9";
+  }
+  if(str==PASSWORTTABLLE[10])
+  {
+    NUMBERTEXT="a";
+  }
+  if(str==PASSWORTTABLLE[11])
+  {
+    NUMBERTEXT="b";
+  }
+  if(str==PASSWORTTABLLE[12])
+  {
+    NUMBERTEXT="c";
+  }
+  if(str==PASSWORTTABLLE[13])
+  {
+    NUMBERTEXT="d";
+  }
+  if(str==PASSWORTTABLLE[14])
+  {
+    NUMBERTEXT="e";
+  }
+  if(str==PASSWORTTABLLE[15])
+  {
+    NUMBERTEXT="f";
+  }
+  return NUMBERTEXT;
+}
+var SINGLENUMBER=[];
+for(var i=0;i<KLARTEXTUNZAUNTTEXT.length;i++)
+{
+    SINGLENUMBER+=getHexadezimaltext(KLARTEXTUNZAUNTTEXT[i]);
+}
+//document.getElementById("singlenumber").innerHTML="还原为十六进制数字"+SINGLENUMBER;
+
+//制造分隔位数字组
+var GROUP=[""];
+function getSeparateZifferngruppe(str)
+{
+  var k=0;
+  for(var i=0;i<str.length;i++)
+  {
+    if(str[i]!=",")
+    {
+      GROUP[k]+=str[i];
+    }
+    if(str[i]==",")
+    {
+      k++;
+      GROUP[k]="";
+    }
+  }
+}
+getSeparateZifferngruppe(NUMBERSTRING);
+//document.getElementById("group").innerHTML="制造分隔位数字组"+GROUP;
+
+//插入分隔符
+var HEXADESINGLETEXT=[];
+var tt=0;
+function SetzenSieeinenSeparator1(str)
+{
+  for(var k=0;k<parseInt(str[0]);k++)
+  {
+    HEXADESINGLETEXT+=SINGLENUMBER[k];
+  }
+  return HEXADESINGLETEXT;
+}
+function SetzenSieeinenSeparator2(str)
+{
+  for(var k=parseInt(str[tt-1]);k<parseInt(str[tt]);k++)
+    {
+     HEXADESINGLETEXT+=SINGLENUMBER[k];
+    }
+  return HEXADESINGLETEXT;
+}
+
+var HEXADEZIMALTEXT=[]
+HEXADEZIMALTEXT[0]=SetzenSieeinenSeparator1(GROUP);
+
+HEXADESINGLETEXT=[];
+for(tt=1;tt<GROUP.length;tt++)
+{
+  HEXADEZIMALTEXT[tt]=SetzenSieeinenSeparator2(GROUP);
+  HEXADESINGLETEXT=[];
+}
+//document.getElementById("hexadezimaltext").innerHTML="插入分隔符"+HEXADEZIMALTEXT;
+
+//转为十进制数字
+function getDezimaltext(str)
+{  
+    var res = [];  
+    for ( var i=0; i<str.length; i++ ) 
+    {  
+      res[i] =parseInt(str[i],16);  
+    }  
+    return res; 
+}  
+
+var DEZIMALTEXT=getDezimaltext(HEXADEZIMALTEXT);
+//document.getElementById("dezimaltext").innerHTML="转为十进制数字"+DEZIMALTEXT;
+
+//数字栅栏还原
+function getEntschlusselndigitalerZaun(str)
+{
+  if(str.length%2==0)
+    {
+      var res=[];
+      for(var i=0;i<str.length/2;)
+      {
+       res+=str[i]+",";
+       res+=str[str.length/2+i];
+       if(str.length/2+i!=str.length-1)
+        {
+         res+=",";
+        }
+       i++;
+      }
+  return res;
+    }
+  if(str.length%2!=0)
+    {
+     var res=[];
+     for(var i=0;i<str.length/2;)
+      {
+       res+=str[i];
+       if(i!=(str.length-1)/2)
+       {
+        res+=",";
+       }
+       if(i!=(str.length-1)/2)
+       {
+        res+=str[(1+str.length)/2+i]+",";
+       }
+       i++;
+      }
+  return res;
+    }
+}
+
+var ENTSCHLUSSELNDIGITALERZAUN=getEntschlusselndigitalerZaun(DEZIMALTEXT);
+//document.getElementById("entschlusselndigitalerzaun").innerHTML="数字栅栏还原"+ENTSCHLUSSELNDIGITALERZAUN;
+
+//制造分隔位数字组
+var GROUP2=[""];
+function getSeparateZifferngruppe2(str)
+{
+  var k=0;
+  for(var i=0;i<str.length;i++)
+  {
+    if(str[i]!=",")
+    {
+      GROUP2[k]+=str[i];
+    }
+    if(str[i]==",")
+    {
+      k++;
+      GROUP2[k]="";
+    }
+  }
+}
+getSeparateZifferngruppe2(ENTSCHLUSSELNDIGITALERZAUN);
+//document.getElementById("group2").innerHTML="制造分隔位数字组"+GROUP2;
+
+//后累加解密
+function NachderkumulativenEntschlusselung(str)
+{
+  var res=[];
+  var i;
+  res[0]=str[0];
+  for ( i=1; i<str.length; i++ )
+      {
+       res[i]=str[i]-res[i-1];
+      } 
+   return res;
+}
+
+var KUMULATIVENENTSCHLUSSELUNG=NachderkumulativenEntschlusselung(GROUP2);
+//document.getElementById("kumulativenentschlusselung").innerHTML="后累加解密"+KUMULATIVENENTSCHLUSSELUNG;
+
+//前累加解密
+function VorkumuliertemVerschlusselung(str)
+{
+    var res=[];
+    var i;
+    res[str.length-1]=str[str.length-1];
+    for ( i=str.length-2; i>=0; i-- )
+        {
+          res[i]=str[i]-res[i+1];
+        } 
+    return res;
+}
+
+var VORKUMULATIVENENTSCHLUSSELUNG=VorkumuliertemVerschlusselung(KUMULATIVENENTSCHLUSSELUNG);
+//document.getElementById("vorkumuliertemverschlusselung").innerHTML="前累加解密"+VORKUMULATIVENENTSCHLUSSELUNG;
+
+//转为十六进制字符串
+function getHexadezimal(str) 
+{  
+  var res = [];
+  for ( var i=0; i<str.length; i++ ) 
+  {  
+     res[i] =str[i].toString(16);
+  }  
+  return res; 
+}
+var HEXADEZIMAL=getHexadezimal(VORKUMULATIVENENTSCHLUSSELUNG);
+var HEXADEZIMAL0=HEXADEZIMAL;
+//document.getElementById("hexadezimal0").innerHTML="转为十六进制字符串"+HEXADEZIMAL0;
+
+//补零函数
+function Nullstellfunktion(str)
+{
+  var lins=[];
+  var res=[];
+  for(var i=0;i<str.length;i++)
+  {
+    lins=str[i].split("");
+    if(lins.length==3)
+     {
+      HEXADEZIMAL0[i] ="0"+str[i];
+     }
+    if(lins.length==2)
+     {
+      HEXADEZIMAL0[i] ="00"+str[i];
+     }
+     if(lins.length==1)
+     {
+      HEXADEZIMAL0[i] ="000"+str[i];
+     } 
+  }
+}
+Nullstellfunktion(HEXADEZIMAL);
+//document.getElementById("hexadezimal0").innerHTML="补零函数"+HEXADEZIMAL0;
+
+//unicode解码预处理
+function DekodierungsVorbehandlung(str)
+{
+  var res=[];
+  for(var i=0;i<str.length;i++)
+  {
+    res+="\\u"+str[i];
+  }
+  return res;
+}
+var VORBEHANDLUNG=DekodierungsVorbehandlung(HEXADEZIMAL0);
+//document.getElementById("vorbehandlung").innerHTML="unicode解码预处理"+VORBEHANDLUNG;
+
+//unicode解码
+function decodeUnicode(str) 
+{  
+    str = str.replace(/\\/g, "%");
+    return unescape(str);  
+}
+var BAI=decodeUnicode(VORBEHANDLUNG);
+document.getElementById("bai").innerHTML="明文："+BAI;
+
+</script>
+
+</body>
+</html>
