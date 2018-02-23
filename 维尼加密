@@ -1,10 +1,19 @@
-# Hallo-Welt
-<p>Dies ist mein erstes Repository auf GitHub. Ich hoffe, es kann mir helfen, meine Aufgabe fließend zu beenden.</p>
 <!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
 <html>
-<body>
-
-<p id="testtext"></p>
+    <head>
+        <title>加密</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+<p>密钥</p><textarea id="passworttable1" style="width:300px; height:20px;" ></textarea>
+<p id="passworttable"></p>
+<p>明文</p><textarea id="testtext" style="width:1400px; height:90px;"></textarea>
 <p id="chiffretext"></p>
 <p id="dezimaltext"></p>
 <p id="akkumulieren1"></p>
@@ -16,12 +25,12 @@
 <p id="zahlenfolgetext"></p>
 <p id="klartext"></p>
 <p id="derendgultigegeheimtext"></p>
-<p id="derendgultigegeheimtext2"></p>
+<p id="derendgultigegeheimtextzwei"></p>
 <p id="gerget"></p>
-
+<p>密文</p><p><textarea id="jieguo" style="width:1400px; height:262px;" ></textarea></p>
 <script>
 
-//变量名称为大写字母，id为与变量名称相对应的小写字母
+//变量名称为大写字母，ID为与变量名称相对应的小写字母
 //TESTTEXT                  测试明文
 //CHIFFRETEXT               初级密文
 //DEZIMALTEXT               十进制文本
@@ -34,47 +43,96 @@
 //ZAHLENFOLGETEXT           数字串
 //KLARTEXT                  片假名
 //DERENDGULTIGEGEHEIMTEXT   最终密文
-//DERENDGULTIGEGEHEIMTEXT2  最终密文2
+//derendgultigegeheimtextzwei  最终密文2
 //GERGET  最终密文3
 
 //密码表
-var PASSWORTTABLLE="ボジオタギデバリミュサザョビエマ";
-//var PASSWORTTABLLE="БбЁёЖжИиЛлПпФфЦц";
+//var PASSWORTTABLLE="ボジオタギデバリミュサザョビエマ";
+//var PASSWORTTABLLE="БбЁёЖжИиЛлПпФфЦц";  
 
-var TESTTEXT ="我爱你。Ich liebe dich.私はあなたを愛している。I love you.";
-document.getElementById("testtext").innerHTML="明文："+TESTTEXT;
+var PASSWORTTABLLE;
+var GERGET;
 
-//转为unicode编码
-function encodeUnicode(str) 
-{  
+function myFunction1()
+{
+  var js=0;
+  var jse=0;
+  var PASSWORTTABLLE1=document.getElementById("passworttable1").value;
+  if(PASSWORTTABLLE1==="")
+   {
+    alert("密钥内容为空！");
+   }
+  else if(PASSWORTTABLLE1.length!==16)
+  {
+    alert("密钥长度必须为16！");
+  }
+  for(var i=0;i<PASSWORTTABLLE1.length;i++)
+  {
+    if(!isNaN(PASSWORTTABLLE1[i]))
+  {
+    js++;
+  }
+  }
+  if(js)
+  {
+    alert("密钥不得含有数字，空格");
+  }
+  for(var i=0;i<PASSWORTTABLLE1.length;i++)
+  {
+    for(var k=i+1;k<PASSWORTTABLLE1.length-1;k++)
+  {
+    if(PASSWORTTABLLE1[k]===PASSWORTTABLLE1[i])
+    {
+      jse++;
+    }
+  }
+  }
+  if(jse)
+  {
+    alert("密钥中不得有重复字符！");
+  }
+  else
+  {
+    PASSWORTTABLLE=PASSWORTTABLLE1;
+  }
+}
+
+function myFunction2()
+{
+  var TESTTEXT=document.getElementById("testtext").value;
+  if(TESTTEXT==="")
+      {
+      alert("明文内容为空！");
+      }
+  else
+  {
+    //转为unicode编码
+  function encodeUnicode(str) 
+  {  
     var res = [];  
     for ( var i=0; i<str.length; i++ ) 
     {  
       res[i] = ( "00" + str.charCodeAt(i).toString(16) ).slice(-4);  
     }  
     return res; 
-}  
-
-var CHIFFRETEXT=encodeUnicode(TESTTEXT);
-//document.getElementById("chiffretext").innerHTML="转为unicode编码"+CHIFFRETEXT;
-
-//转为十进制数字
-function getDezimaltext(str) 
-{  
+  }  
+    var CHIFFRETEXT=encodeUnicode(TESTTEXT);
+    //document.getElementById("chiffretext").innerHTML="转为unicode编码"+CHIFFRETEXT;
+    //转为十进制数字
+  function getDezimaltext(str) 
+  {  
     var res = [];  
     for ( var i=0; i<str.length; i++ ) 
     {  
       res[i] =parseInt(CHIFFRETEXT[i],16);  
     }  
     return res; 
-}  
-
-var DEZIMALTEXT=getDezimaltext(CHIFFRETEXT);
-//document.getElementById("dezimaltext").innerHTML="转为十进制数字"+DEZIMALTEXT;
-
-//前累加加密
-function getAkkumulieren1(str)
-{
+  }
+    var DEZIMALTEXT=getDezimaltext(CHIFFRETEXT);
+    //document.getElementById("dezimaltext").innerHTML="转为十进制数字"+DEZIMALTEXT;
+    //前累加加密
+  function getAkkumulieren1(str)
+  {
     var res=[];
     var i;
     for ( i=0; i<str.length-1; i++ ) 
@@ -83,14 +141,12 @@ function getAkkumulieren1(str)
         } 
         res[i]=str[i];
         return res;
-}
-
-var AKKUMULIEREN1=getAkkumulieren1(DEZIMALTEXT);
-//document.getElementById("akkumulieren1").innerHTML="前累加加密"+AKKUMULIEREN1;
-
-//后累加加密
-function getAkkumulieren2(str)
-{
+  }
+  var AKKUMULIEREN1=getAkkumulieren1(DEZIMALTEXT);
+  //document.getElementById("akkumulieren1").innerHTML="前累加加密"+AKKUMULIEREN1;
+  //后累加加密
+  function getAkkumulieren2(str)
+  {
     var res=[];
     var i;
     for ( i=str.length-1; i>0; i-- ) 
@@ -99,14 +155,12 @@ function getAkkumulieren2(str)
         } 
         res[i]=str[i];
         return res;
-}
-
-var AKKUMULIEREN2=getAkkumulieren2(AKKUMULIEREN1);
-//document.getElementById("akkumulieren2").innerHTML="后累加加密"+AKKUMULIEREN2;
-
-//栅栏加密
-function getZaun(str)
-{
+  }
+  var AKKUMULIEREN2=getAkkumulieren2(AKKUMULIEREN1);
+  //document.getElementById("akkumulieren2").innerHTML="后累加加密"+AKKUMULIEREN2;
+  //栅栏加密
+  function getZaun(str)
+  {
     var res=[];
     var k=0;
     for(var i=0;i<str.length;i+=2)
@@ -120,50 +174,47 @@ function getZaun(str)
         k++;
     }
     return res;
-}
-
-var ZAUN=getZaun(AKKUMULIEREN2);
-//document.getElementById("zaun").innerHTML="栅栏加密"+ZAUN;
-
-//转为十六进制字符串
-function getHexadezimal(str) 
-{  
+  }
+  var ZAUN=getZaun(AKKUMULIEREN2);
+  //document.getElementById("zaun").innerHTML="栅栏加密"+ZAUN;
+  //转为十六进制字符串
+  function getHexadezimal(str) 
+  {  
     var res = [];  
     for ( var i=0; i<str.length; i++ ) 
     {  
       res[i] =str[i].toString(16);  
     }  
     return res; 
-}
+  }
 
-var HEXADEZIMALTEXT=getHexadezimal(ZAUN);
-//document.getElementById("hexadezimaltext").innerHTML="转为十六进制字符串"+HEXADEZIMALTEXT;
+  var HEXADEZIMALTEXT=getHexadezimal(ZAUN);
+  //document.getElementById("hexadezimaltext").innerHTML="转为十六进制字符串"+HEXADEZIMALTEXT;
 
-//记录分隔位
- var number=0;
-function ZeichnenSiedasTrennungsbitauf(str)
-{
+  //记录分隔位
+  var number=0;
+  function ZeichnenSiedasTrennungsbitauf(str)
+  {
     var res=[];
     res=str.split("");
     number+=parseInt(res.length);
-}
-var NUMSTRING=[];
-for(var i=0;i<CHIFFRETEXT.length;i++)
-{
+  }
+  var NUMSTRING=[];
+  for(var i=0;i<CHIFFRETEXT.length;i++)
+  {
     ZeichnenSiedasTrennungsbitauf(HEXADEZIMALTEXT[i]);
     NUMSTRING[i]=number;
-}
-var GETRENNTEBITS=[]
-for(var i=0;i<NUMSTRING.length;i++)
-{
+  }
+  var GETRENNTEBITS=[];
+  for(var i=0;i<NUMSTRING.length;i++)
+  {
     GETRENNTEBITS[i]=NUMSTRING[i];
+  }
 
-}
-
-//获取字符串
-var res2 = [];
-function getZeichenfolge(str) 
-{  
+  //获取字符串
+  var res2 = [];
+  function getZeichenfolge(str) 
+  {  
     var res1 = [];
     for ( var i=0; i<str.length; i++ ) 
     {  
@@ -171,39 +222,39 @@ function getZeichenfolge(str)
       res2+=res1;
     }  
     return res2; 
-}
+  }
 
-var ZEICHENFOLGE=getZeichenfolge(HEXADEZIMALTEXT);
-//document.getElementById("zeichenfolge").innerHTML="获取字符串"+ZEICHENFOLGE;
+  var ZEICHENFOLGE=getZeichenfolge(HEXADEZIMALTEXT);
+  //document.getElementById("zeichenfolge").innerHTML="获取字符串"+ZEICHENFOLGE;
 
-//最后一个数字串
-function getZahlenfolgetext(str)
-{
+  //最后一个数字串
+  function getZahlenfolgetext(str)
+  {
     ZEICHENFOLGE=str;
     var TT=[];
     var TT1=[];
     for ( var i=0; i<str.length; i++ ) 
         {  
           TT1=str[i].split("");
-          if(i!=str.length-1)
+          if(i!==str.length-1)
           {
             TT+=TT1+",";
           }
-          if(i==str.length-1)
+          if(i===str.length-1)
             {
                 TT+=TT1;
             }
         }
     return TT.replace(/,/g, "");
-}
+  }
 
-var ZAHLENFOLGETEXT=getZahlenfolgetext(ZEICHENFOLGE);
-//document.getElementById("zahlenfolgetext").innerHTML="最后一个数字串"+ZAHLENFOLGETEXT;
+  var ZAHLENFOLGETEXT=getZahlenfolgetext(ZEICHENFOLGE);
+  //document.getElementById("zahlenfolgetext").innerHTML="最后一个数字串"+ZAHLENFOLGETEXT;
 
-//最终密文
-var KLARTEXT=[];
-function getDerendgultigegeheimtext(str)
-{
+  //最终密文
+  var KLARTEXT=[];
+  function getDerendgultigegeheimtext(str)
+  {
     switch(str)
     {
         case "0":
@@ -288,26 +339,29 @@ function getDerendgultigegeheimtext(str)
         }
     }
     return KLARTEXT;
-}
+  }
 
-var DERENDGULTIGEGEHEIMTEXT=[];
-for(var i=0;i<ZAHLENFOLGETEXT.length;i++)
-{
+  var DERENDGULTIGEGEHEIMTEXT=[];
+  for(var i=0;i<ZAHLENFOLGETEXT.length;i++)
+  {
     DERENDGULTIGEGEHEIMTEXT+=getDerendgultigegeheimtext(ZAHLENFOLGETEXT[i]);
+  }
+
+  var derendgultigegeheimtextzwei=getZaun(DERENDGULTIGEGEHEIMTEXT);
+  //document.getElementById("derendgultigegeheimtextzwei").innerHTML="最终密文"+derendgultigegeheimtextzwei;
+
+  var DERENDGULTIGEGEHEIMTEXT3=[];
+  for(var i=0;i<derendgultigegeheimtextzwei.length;i++)
+  {
+    DERENDGULTIGEGEHEIMTEXT3+=derendgultigegeheimtextzwei[i].replace(/,/g, "");
+  }
+  GERGET=DERENDGULTIGEGEHEIMTEXT3+GETRENNTEBITS;
+  //document.getElementById("gerget").innerHTML="密文："+GERGET;
+  document.getElementById("jieguo").value = GERGET;
+ }
 }
-
-var DERENDGULTIGEGEHEIMTEXT2=getZaun(DERENDGULTIGEGEHEIMTEXT);
-//document.getElementById("derendgultigegeheimtext2").innerHTML="最终密文"+DERENDGULTIGEGEHEIMTEXT2;
-
-var DERENDGULTIGEGEHEIMTEXT3=[];
-for(var i=0;i<DERENDGULTIGEGEHEIMTEXT2.length;i++)
-{
-  DERENDGULTIGEGEHEIMTEXT3+=DERENDGULTIGEGEHEIMTEXT2[i].replace(/,/g, "");
-}
-var GERGET=DERENDGULTIGEGEHEIMTEXT3+GETRENNTEBITS;
-document.getElementById("gerget").innerHTML="密文："+GERGET;
-
 </script>
-
-</body>
+<button type="button" onclick="myFunction1()">确认密钥</button>
+<button type="button" onclick="myFunction2()">加密</button>
+    </body>
 </html>
