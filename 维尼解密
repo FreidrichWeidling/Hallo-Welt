@@ -1,10 +1,15 @@
-# Hallo-Welt
-<p>Dies ist mein erstes Repository auf GitHub. Ich hoffe, es kann mir helfen, meine Aufgabe fließend zu beenden.</p>
 <!DOCTYPE html>
-<html>
-<body>
 
-<p id="testtext"></p>
+<html>
+    <head>
+        <title>解密</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+<p>密钥</p><textarea id="passworttable1" style="width:300px; height:20px;"></textarea>
+<p id="passworttable"></p>
+<p>密文</p><textarea id="testtext" style="width:1400px; height:262px;"></textarea>
 <p id="numberstring"></p>
 <p id="klartext"></p>
 <p id="klartextunzaunttext"></p>
@@ -21,7 +26,7 @@
 <p id="hexadezimal0"></p>
 <p id="vorbehandlung"></p>
 <p id="bai"></p>
-
+<p>明文</p><p><textarea id="jieguo" style="width:1400px; height:90px;"></textarea></p>
 <script>
 
 //变量名称为大写字母，id为与变量名称相对应的小写字母
@@ -44,13 +49,65 @@
 //BAI                             明文
 
 //密码表
-var PASSWORTTABLLE="ボジオタギデバリミュサザョビエマ";
-//var PASSWORTTABLLE="БбЁёЖжИиЛлПпФфЦц";
+//var PASSWORTTABLLE="ボジオタギデバリミュサザョビエマ";
+//var PASSWORTTABLLE="БбЁёЖжИиЛлПпФфЦц";  
 
-var TESTTEXT = "ビギジボタボリデジジュジョデジリサデボエョリマュマオョリュビマジボバジジミジデタマビリジギサジエボジュバジギマジビジサオジョバョデタザジリョジエョビギオギマタマジタバジデギジジュリミジサジジデオエオマジュボミデョジボミジリュビササジリジジタミジュュジジオジョデョザジタマジリジョボギバジボジジョジ4,9,13,16,19,22,25,28,31,35,40,44,48,52,56,60,62,65,68,71,74,79,83,86,89,92,95,98,101,104,109,113,117,122,126,130,134,137,140,143,146,148";
-document.getElementById("testtext").innerHTML="密文："+TESTTEXT;
+var PASSWORTTABLLE;
 
-//获得片假名
+function myFunction1()
+{
+  var js=0;
+  var jse=0;
+  var PASSWORTTABLLE1=document.getElementById("passworttable1").value;
+  if(PASSWORTTABLLE1==="")
+   {
+    alert("密钥内容为空！");
+   }
+  else if(PASSWORTTABLLE1.length!==16)
+  {
+    alert("密钥长度必须为16！");
+  }
+  for(var i=0;i<PASSWORTTABLLE1.length;i++)
+  {
+    if(!isNaN(PASSWORTTABLLE1[i]))
+  {
+    js++;
+  }
+  }
+  if(js)
+  {
+    alert("密钥不得含有数字，空格");
+  }
+  for(var i=0;i<PASSWORTTABLLE1.length;i++)
+  {
+    for(var k=i+1;k<PASSWORTTABLLE1.length-1;k++)
+  {
+    if(PASSWORTTABLLE1[k]===PASSWORTTABLLE1[i])
+    {
+      jse++;
+    }
+  }
+  }
+  if(jse)
+  {
+    alert("密钥中不得有重复字符！");
+  }
+  else
+  {
+    PASSWORTTABLLE=PASSWORTTABLLE1;
+  }
+}
+
+function myFunction2()
+{
+  var TESTTEXT=document.getElementById("testtext").value;
+  if(TESTTEXT==="")
+      {
+      alert("密文内容为空！");
+      }
+  else
+  {
+   //获得片假名
 var COUNT=0;
 var KLARTEXT=[];
 function getNumberundKlartext(str)
@@ -58,10 +115,10 @@ function getNumberundKlartext(str)
   var k=0;
   for(i=0;i<str.length;i++)
   {
-    if(str[i]==PASSWORTTABLLE[0]||str[i]==PASSWORTTABLLE[1]||str[i]==PASSWORTTABLLE[2]||str[i]==PASSWORTTABLLE[3]||str[i]==PASSWORTTABLLE[4]||
-      str[i]==PASSWORTTABLLE[5]||str[i]==PASSWORTTABLLE[6]||str[i]==PASSWORTTABLLE[7]||str[i]==PASSWORTTABLLE[8]||
-      str[i]==PASSWORTTABLLE[9]||str[i]==PASSWORTTABLLE[10]||str[i]==PASSWORTTABLLE[11]||str[i]==PASSWORTTABLLE[12]||str[i]==PASSWORTTABLLE[13]||
-      str[i]==PASSWORTTABLLE[14]||str[i]==PASSWORTTABLLE[15])
+    if(str[i]===PASSWORTTABLLE[0]||str[i]===PASSWORTTABLLE[1]||str[i]===PASSWORTTABLLE[2]||str[i]===PASSWORTTABLLE[3]||str[i]===PASSWORTTABLLE[4]||
+      str[i]===PASSWORTTABLLE[5]||str[i]===PASSWORTTABLLE[6]||str[i]===PASSWORTTABLLE[7]||str[i]===PASSWORTTABLLE[8]||
+      str[i]===PASSWORTTABLLE[9]||str[i]===PASSWORTTABLLE[10]||str[i]===PASSWORTTABLLE[11]||str[i]===PASSWORTTABLLE[12]||str[i]===PASSWORTTABLLE[13]||
+      str[i]===PASSWORTTABLLE[14]||str[i]===PASSWORTTABLLE[15])
      {
        KLARTEXT[i]=str[i];
        COUNT++;
@@ -75,7 +132,7 @@ getNumberundKlartext(TESTTEXT);
 //片假名栅栏还原
 function getKlartextunzaun(str)
 {
-    if(str.length%2==0)
+    if(str.length%2===0)
       {
           var res=[];
       for(var i=0;i<str.length/2;)
@@ -86,13 +143,13 @@ function getKlartextunzaun(str)
       }
       return res;
       }
-    if(str.length%2!=0)
+    if(str.length%2!==0)
     {
       var res=[];
       for(var i=0;i<str.length/2;)
       {
           res+=str[i];
-          if(i!=(str.length-1)/2)
+          if(i!==(str.length-1)/2)
           {
             res+=str[(1+str.length)/2+i];
           }
@@ -113,67 +170,67 @@ NUMBERSTRING=TESTTEXT.substring(COUNT);
 var NUMBERTEXT=[];
 function getHexadezimaltext(str)
 {
-  if(str==PASSWORTTABLLE[0])
+  if(str===PASSWORTTABLLE[0])
   {
     NUMBERTEXT="0";
   }
-  if(str==PASSWORTTABLLE[1])
+  if(str===PASSWORTTABLLE[1])
   {
     NUMBERTEXT="1";
   }
-  if(str==PASSWORTTABLLE[2])
+  if(str===PASSWORTTABLLE[2])
   {
     NUMBERTEXT="2";
   }
-  if(str==PASSWORTTABLLE[3])
+  if(str===PASSWORTTABLLE[3])
   {
     NUMBERTEXT="3";
   }
-  if(str==PASSWORTTABLLE[4])
+  if(str===PASSWORTTABLLE[4])
   {
     NUMBERTEXT="4";
   }
-  if(str==PASSWORTTABLLE[5])
+  if(str===PASSWORTTABLLE[5])
   {
     NUMBERTEXT="5";
   }
-  if(str==PASSWORTTABLLE[6])
+  if(str===PASSWORTTABLLE[6])
   {
     NUMBERTEXT="6";
   }
-  if(str==PASSWORTTABLLE[7])
+  if(str===PASSWORTTABLLE[7])
   {
     NUMBERTEXT="7";
   }
-  if(str==PASSWORTTABLLE[8])
+  if(str===PASSWORTTABLLE[8])
   {
     NUMBERTEXT="8";
   }
-  if(str==PASSWORTTABLLE[9])
+  if(str===PASSWORTTABLLE[9])
   {
     NUMBERTEXT="9";
   }
-  if(str==PASSWORTTABLLE[10])
+  if(str===PASSWORTTABLLE[10])
   {
     NUMBERTEXT="a";
   }
-  if(str==PASSWORTTABLLE[11])
+  if(str===PASSWORTTABLLE[11])
   {
     NUMBERTEXT="b";
   }
-  if(str==PASSWORTTABLLE[12])
+  if(str===PASSWORTTABLLE[12])
   {
     NUMBERTEXT="c";
   }
-  if(str==PASSWORTTABLLE[13])
+  if(str===PASSWORTTABLLE[13])
   {
     NUMBERTEXT="d";
   }
-  if(str==PASSWORTTABLLE[14])
+  if(str===PASSWORTTABLLE[14])
   {
     NUMBERTEXT="e";
   }
-  if(str==PASSWORTTABLLE[15])
+  if(str===PASSWORTTABLLE[15])
   {
     NUMBERTEXT="f";
   }
@@ -193,11 +250,11 @@ function getSeparateZifferngruppe(str)
   var k=0;
   for(var i=0;i<str.length;i++)
   {
-    if(str[i]!=",")
+    if(str[i]!==",")
     {
       GROUP[k]+=str[i];
     }
-    if(str[i]==",")
+    if(str[i]===",")
     {
       k++;
       GROUP[k]="";
@@ -227,7 +284,7 @@ function SetzenSieeinenSeparator2(str)
   return HEXADESINGLETEXT;
 }
 
-var HEXADEZIMALTEXT=[]
+var HEXADEZIMALTEXT=[];
 HEXADEZIMALTEXT[0]=SetzenSieeinenSeparator1(GROUP);
 
 HEXADESINGLETEXT=[];
@@ -255,14 +312,14 @@ var DEZIMALTEXT=getDezimaltext(HEXADEZIMALTEXT);
 //数字栅栏还原
 function getEntschlusselndigitalerZaun(str)
 {
-  if(str.length%2==0)
+  if(str.length%2===0)
     {
       var res=[];
       for(var i=0;i<str.length/2;)
       {
        res+=str[i]+",";
        res+=str[str.length/2+i];
-       if(str.length/2+i!=str.length-1)
+       if(str.length/2+i!==str.length-1)
         {
          res+=",";
         }
@@ -270,17 +327,17 @@ function getEntschlusselndigitalerZaun(str)
       }
   return res;
     }
-  if(str.length%2!=0)
+  if(str.length%2!==0)
     {
      var res=[];
      for(var i=0;i<str.length/2;)
       {
        res+=str[i];
-       if(i!=(str.length-1)/2)
+       if(i!==(str.length-1)/2)
        {
         res+=",";
        }
-       if(i!=(str.length-1)/2)
+       if(i!==(str.length-1)/2)
        {
         res+=str[(1+str.length)/2+i]+",";
        }
@@ -300,11 +357,11 @@ function getSeparateZifferngruppe2(str)
   var k=0;
   for(var i=0;i<str.length;i++)
   {
-    if(str[i]!=",")
+    if(str[i]!==",")
     {
       GROUP2[k]+=str[i];
     }
-    if(str[i]==",")
+    if(str[i]===",")
     {
       k++;
       GROUP2[k]="";
@@ -368,15 +425,15 @@ function Nullstellfunktion(str)
   for(var i=0;i<str.length;i++)
   {
     lins=str[i].split("");
-    if(lins.length==3)
+    if(lins.length===3)
      {
       HEXADEZIMAL0[i] ="0"+str[i];
      }
-    if(lins.length==2)
+    if(lins.length===2)
      {
       HEXADEZIMAL0[i] ="00"+str[i];
      }
-     if(lins.length==1)
+     if(lins.length===1)
      {
       HEXADEZIMAL0[i] ="000"+str[i];
      } 
@@ -405,9 +462,12 @@ function decodeUnicode(str)
     return unescape(str);  
 }
 var BAI=decodeUnicode(VORBEHANDLUNG);
-document.getElementById("bai").innerHTML="明文："+BAI;
-
+//document.getElementById("bai").innerHTML="明文："+BAI;
+document.getElementById("jieguo").value = BAI;
+  }
+}
 </script>
-
-</body>
+<button type="button" onclick="myFunction1()">确认密钥</button>
+<button type="button" onclick="myFunction2()">解密</button>
+    </body>
 </html>
